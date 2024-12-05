@@ -1,6 +1,7 @@
 import numpy as np
 from numpy.linalg import eig
 import matplotlib.pyplot as plt
+import pandas as pd
 
 class ACP:
 
@@ -40,8 +41,16 @@ class ACP:
         return k, total_variance_ratio, base
     
     @staticmethod
-    def proj(scatter_dataset, base):
-        return np.dot(base, scatter_dataset.T)
+    def proj(scatter_dataset, base, index=None):
+        # Calcul de la projection
+        projection = np.dot(scatter_dataset, base.T)
+
+        # Si une seule composante principale, retourner une Series
+        # if projection.shape[1] == 1:
+        #     return pd.Series(projection.ravel(), index=index)
+
+        # Sinon, retourner un DataFrame
+        return pd.DataFrame(projection, index=index)
     
     @staticmethod
     def plot_acp(X_reduced, vects_sorted, lambdas_sorted, feature_names, label_colors=None, labels=None):

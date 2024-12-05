@@ -23,7 +23,7 @@ class LogisticRegression:
         z = np.dot(X, self.weights)
         return [1 if i > 0.5 else 0 for i in self.sigmoid(z)]
     
-    def accuracy(y_true, y_pred):
+    def accuracy(self, y_true, y_pred):
         accuracy = np.sum(y_true == y_pred) / len(y_true)
         return accuracy
 
@@ -37,5 +37,7 @@ class LogisticRegression_sklearn:
     def predict(self, X):
         return self.model.predict(X)
 
-    def accuracy(y_true, y_pred):
-        accuracy = np.sum(y_true == y_pred) / len(y_true)
+    def accuracy(self, y_true, y_pred):
+        accuracy = self.model.accuracy_score(y_true, y_pred)
+        print(f"Accuracy: {accuracy}")
+        return accuracy
